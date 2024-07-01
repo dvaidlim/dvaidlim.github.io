@@ -1,611 +1,120 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>咸电配电数智一码通</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    .container {
-      width: 100vw;
-      height: 100%;
-      overflow-y: scroll;
-    }
-    .header {
-      width: 100%;
-      background-color: #009994;
-      height: 2rem;
-      line-height: 2rem;
-      box-shadow: inset 0px 0px 1.2rem #E8E4DA;
-    }
-    .left {
-      float: left;
-      padding-left: 10px;
-    }
-    .right {
-      width: 100%;
-      text-align: center;
-      font-size: 20px;
-      font-weight: 600;
-    } 
-    .menu {
-      width: 30px;
-      height: 30px;
-      margin: auto;
-    }
-    .menu-box {
-      width: 50%;
-      position: fixed;
-      top: 0;
-      left: -50%;
-      bottom: 0;
-      visibility: hidden;
-      opacity: 0;
-      transition: all .5s linear;
-      z-index: 100;
-      background-color: #fff;
-    }
-    .menu-item {
-      width: 50%;
-      height: 30px;
-      line-height: 30px;
-      margin: auto;
-      text-align: center;
-      cursor: pointer;
-    }
-    .content {
-      display: none;
-      margin: auto;
-      width: 100%;
-      height: 100%;
-      overflow-x: hidden;
-      padding: 10px;
-    }
-    .content .title {
-      width: 100%;
-      text-align: center;
-      margin: 10px 0;
-      font-size: 18px;
-      font-weight: 600;
-    }
-    .content .title i {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      vertical-align: middle;
-      background: url("image/title.png") no-repeat center;
-      background-size: 100% 100%;
-    }
-    .content p {
-      text-indent:2em;
-      font-size: 14px;
-      background-color: rgba(204, 204, 204, 0.5);
-      padding: 6px;
-      border-radius: 3px;
-    }
-    .content .second-title {
-      width: 100%;
-      text-align: center;
-      margin-top: 10px;
-      margin-bottom: 5px;
-      /* margin-bottom: -20px; */
-      font-size: 16px;
-      font-weight: 500;
-    }
-    .content .second-title i {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      vertical-align: middle;
-      background: url("image/second-title.png") no-repeat center;
-      background-size: 100% 100%;
-    }
-    .contact-person img {
-      width: 100%;
-      /* height: 165px; */
-      object-fit: contain;
-      background-color: rgba(204, 204, 204, 0.5);
-    } 
-    .generator-truck img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background-color: rgba(204, 204, 204, 0.5);
-    }
-    .overview img {
-      width: 100%;
-      /* height: 165px; */
-      object-fit: contain;
-      background-color: rgba(204, 204, 204, 0.5);
-    }
-    .power-distribution img {
-      width: 100%;
-      /* height: 465px; */
-      background-color: rgba(204, 204, 204, 0.5);
-      object-fit: contain;
-      /* transform: rotate(270deg); */
-    }
-    .content-item {
-      padding: 10px;
-      background-color: rgba(204, 204, 204, 0.5);
-    }
-    .flood-control .content-item:nth-child(2) {
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
-    }
-    .flood-control .content-item:last-child {
-      border-bottom-left-radius: 5px;
-      border-bottom-right-radius: 5px;
-    }
-    .wiring img {
-      width: 100%;
-      /* height: 445px; */
-      object-fit: contain;
-      background-color: rgba(204, 204, 204, 0.5);
-      
-    }
-    .power img {
-      width: 100%;
-      /* height: 495px; */
-      object-fit: contain;
-      background-color: rgba(204, 204, 204, 0.5);
-    }
-    .gis img {
-      width: 100%;
-      /* height: 510px; */
-      object-fit: contain;
-      background-color: rgba(204, 204, 204, 0.5);
-    }
-    .label {
-      margin: 10px 0;
-      font-weight: 500;
-      text-align: center;
-    }
-    .person img {
-      width: 100%;
-      /* height: 175px; */
-      object-fit: contain;
-      background-color: rgba(204, 204, 204, 0.5);
-      /* transform: rotate(270deg); */
-    }
-    .apperance img {
-      width: 100%;
-      /* height: 275px; */
-      object-fit: contain;
-      background-color: rgba(204, 204, 204, 0.5);
-    }
-    .outside img {
-      width: 100%;
-      /* height: 250px; */
-      object-fit: contain;
-      background-color: rgba(204, 204, 204, 0.5);
-    }
-    .inside img {
-      width: 100%;
-      height: 100%;
-      /* height: 285px; */
-      object-fit: contain;
-      background-color: rgba(204, 204, 204, 0.5);
-    }
-    .customerManager img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background-color: rgba(204, 204, 204, 0.5);
-    }
-    .screenshot img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background-color: rgba(204, 204, 204, 0.5);
-    }
-    .property img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background-color: rgba(204, 204, 204, 0.5);
-    }
-    .qiangxiufuzeren img{
-      margin-top: 5px;
-      width: 100%;
-      height: 100%;
-      /* height: 220px; */
-      object-fit: contain;
-      background-color: rgba(204, 204, 204, 0.5);
-    }
-    .contingency .third-title {
-      margin: 10px 0;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>咸电配电数智一码通</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: url("image/background.png") no-repeat center;
+            background-size: 100% 100%;
+        }
+        .form {
+            width: 80%;
+            margin: auto;
+            margin-top: 30%;
+        }
+        .header {
+            width: 100%;
+            font-size: 2em;
+            line-height: 4rem;
+            text-align: center;
+        }
+        .username,.password {
+            width: 100%;
+            height: 2rem;
+            text-align: center;
+            margin-top: 20px;
+        }
+        input {
+            width: 100%;
+            height: 100%;
+            font-size: 1.5em;
+            text-align: center;
+            padding-block: 1px;
+            padding-inline: 2px;
+        }
+        .btn {
+            width: 80%;
+            height: 2rem;
+            margin: auto;
+            margin-top: 2rem;
+            border-radius: 5px;
+            background-color: #006e6b;
+            color: #fff;
+            text-align: center;
+            line-height: 2rem;
+            cursor: pointer;
+        }
+        .message {
+            width: 120px;
+            height: 1.5em;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            display: none;
+            text-align: center;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <div class="left">
-        <div class="menu">
-          <img src="image/shouye.png" alt="">
+    <div class="container">
+        <div class="form">
+            <div class="header">
+                查看验证
+            </div>
+            <div class="username">
+                <input type="text" id="username" name="username" placeholder="请输入人员电话">
+            </div>
+            <div class="password">
+                <input type="text" id="password" name="password" placeholder="请输入验证码">
+            </div>
+            <div class="btn" onclick="submit()">验证</div>
         </div>
-        <div class="menu-box">
-          <div class="menu-item" onclick="chooseMenu(1)">
-            <!-- <img src="./shouye.png" alt=""> -->
-             小区概况
-          </div>
-          <div class="menu-item" onclick="chooseMenu(2)">
-            <!-- <img src="./shouye.png" alt=""> -->
-            配电设备
-          </div>
-          <div class="menu-item" onclick="chooseMenu(3)">
-            <!-- <img src="./shouye.png" alt=""> -->
-             接线图
-          </div>
-          <div class="menu-item" onclick="chooseMenu(4)">
-            <!-- <img src="./shouye.png" alt=""> -->
-            防汛措施
-          </div>
-          <div class="menu-item" onclick="chooseMenu(5)">
-            <!-- <img src="./shouye.png" alt=""> -->
-             抢修信息
-          </div>
-          <div class="menu-item" onclick="chooseMenu(6)">
-            <!-- <img src="./shouye.png" alt=""> -->
-             服务信息
-          </div>
-          <div class="menu-item" onclick="chooseMenu(7)">
-            客户微信
-          </div>
-          <div class="menu-item" onclick="chooseMenu(8)">
-            <!-- <img src="./shouye.png" alt=""> -->
-             应急预案
-          </div>
-        </div>
-      </div>
-      <div class="right">聆水居小区</div>
     </div>
-    <div class="summary content">
-      <div class="title">
-        <i></i>
-        聆水居小区概况
-      </div>
-      <p>
-        聆水居东临沈兴南路、西临咸通南路，南临滨河西路，行政区：容量为7030千伏安（1600×4+630），所带居民楼6栋，居民用户约1647户；供电电源情况：供电电源由安村开关站189聆水居线带1-4号配变；备用电源由269陈安3线闻喜支004号杆带5号配变（无负荷）。
-      </p>
-      <div class="second-title">
-        <i></i>
-        小区主要联络人
-      </div>
-      <div class="contact-person">
-        <img src="image/小区主要联络人.png" alt="">
-      </div>
-      <div class="overview">
-        <img src="image/聆水居小区.png" alt="">
-      </div>
-    </div>
-    <div class="device content">
-      <div class="title">
-        <i></i>
-        聆水居小区主要配电设备情况
-      </div>
-      <div class="power-distribution">
-        <img src="image/主要配电设备情况.png" alt="">
-      </div>
-      <div class="label">图一：配电线路设备简况</div>
-      <div class="generator-truck">
-        <img src="image/发电车使用简况.png" alt="">
-      </div>
-      <div style="font-size: 16px; color: blue; text-align: center; margin-top: 10px;">发电车行驶路线、停放位置、接入位置</div>
-      <div class="label">图二：发电车使用简况</div>
-      <div style="font-size: 12px; text-align: center; margin-top: 10px;">配电室位于3号楼负一层，发电车摆放在2、3号楼之间人行道处，通过软电缆接入配电室AH01专线柜进线地刀闸。</div>
-    </div>
-    <div class="diagram content">
-      <div class="title">
-        <i></i>
-        聆水居小区配电供电线路走径及电气接线
-      </div>
-      <div class="wiring">
-        <img src="image/电气接线图.png" alt="">
-      </div>
-      <div class="label">
-        图一： 聆水居小区电气接线图
-      </div>
-      <div class="power">
-        <img src="image/供电走径简图.png" alt="">
-      </div>
-      <div class="label">
-        图二： 聆水居小区供电走径简图
-      </div>
-      <div class="gis">
-        <img src="image/GIS走径图.png" alt="">
-      </div>
-      <div class="label">
-        图三： 聆水居小区GIS走径图（补充设备到站房坐标信息）
-      </div>
-    </div>
-    <div class="flood-control content">
-      <div class="title">
-        <i></i>
-        聆水居小区防汛措施
-      </div>
-      <div class="content-item">
-        1.挡水墙情况：800mm；
-      </div>
-      <div class="content-item">
-        2.活动挡水板情况：600mm;
-      </div>  
-      <div class="content-item">
-        3.配电房智能巡检装置及水位监测装置：已安装；
-      </div>  
-      <div class="content-item">
-        4.防汛设备：现场已配置自启动排水泵２个，挡水板８块等防汛物资；
-      </div>  
-      <div class="content-item">
-        5.封堵情况：已完成小区电缆井、竖井等封堵工作；
-      </div>  
-       <div class="content-item">
-        6.用户侧防汛情况：小区入口、地下车库进口均配备足够的应急沙袋，防汛挡板，物业建立防汛应急预案，与供电公司建立应急沟通机制。
-      </div>
-    </div>
-    <div class="principal content">
-      <div class="title">
-        <i></i>
-        一、二、三级抢修队伍情况
-      </div>
-      <div class="person">
-        <img src="image/一、二、三级抢修队伍情况.png" alt="">
-      </div>
-    </div>
-    <div class="service content">
-      <div class="title">
-        <i></i>
-        小区配电设施及业主群供电服务情况
-      </div>
-      <div class="apperance">
-        <img src="image/小区外貌.png" alt="">
-      </div>
-      <div class="label">小区外貌</div>
-      <div class="outside">
-        <img src="image/站房位置图.png" alt="">
-      </div>
-      <div class="label">站房位置图</div>
-      <div class="inside">
-        <img src="image/站房内部.png" alt="">
-      </div>
-      <div class="label">站房内部图</div>
-      <div style="font-size: 12px; text-align: center; margin-top: 10px;"> 配电室位于3号楼负一层，发电车摆放在2、3号楼之间人行道处 </div>
-    </div>
-    <div class="wechat content">
-      <div class="customerManager">
-        <img src="image/客户经理二维码.png" alt="">
-      </div>
-      <div class="label">客户经理二维码</div>
-      <div class="screenshot">
-        <img src="image/物业微信群截图.png" alt="">
-      </div>
-      <div class="label">物业微信群截图</div>
-      <div class="property">
-        <img src="image/物业微信群.png" alt="">
-      </div>
-      <div class="label">物业微信群</div>
-    </div>
-    <div class="contingency content">
-      <div class="title">
-        <i></i>
-        防火、防汛、防小区大范围停电应急预案
-      </div>
-      <div class="third-title">
-        （一）成立组织机构
-      </div>
-      <div class="content-item">成立未来华庭小区防火、防汛、防停电应急处置工作组；统一部署和指挥处置突发事件，确保处突工作有序开展。</div>
-      <div class="content-item">组  长：***</div>
-      <div class="content-item">副组长：***</div>
-      <div class="content-item">成  员：*** *** ***</div>
-      <div class="content-item">抢修负责人：</div>
-      <div class="qiangxiufuzeren">
-        <img src="image/抢修负责人.png" alt="">
-      </div>
-      <div class="third-title">
-        （二）工作职责
-      </div>
-      <div class="content-item">
-        组长：负责指挥小区在发生火灾、水淹及小区大面积停电时的应急处置工作，制定处突方案，采取应急措施，快速停送电，减少停电对居民生活的影响，及时向供电公司领导汇报处突进度。
-      </div>
-      <div class="content-item">
-        副组长：负责协助组长制定应急方案，现场指挥成员迅速采取紧急措施，遏制事故的发展，减少舆论影响，及时向组长汇报处突进展。
-      </div>
-      <div class="content-item">
-        成员：负责参与制定应急方案，听从组长和副组长指挥开展停送电、遏制火灾、抽排水和抢险工作，现场做好优质服务工作，及时向组长和副组长汇报现场处突进展。
-      </div>
-      <div class="third-title">
-        （三）应急处置原则
-      </div>
-      <div class="content-item">
-        1.防火处置工作要求
-      </div>
-      <div class="content-item">
-        1.1郑东指挥分中心接到装置报警信息后，立即查看配电站房烟感、火灾情况，第一时间通知设备主人立即赶赴现场，查看火情。
-      </div>
-      <div class="content-item">
-        1.2接到小区着火信息，姚桥供电所网格员朱永福立即赶赴现场查看火情，研判设备受损程度，5分钟内向抢修负责人海洋汇报现场情况，抢修负责人海洋依据现场情况向组长/副组长进行汇报，做好内外部信息互通、舆情防控等工作，并召集小组成员，制定方案，指挥抢险。
-      </div>
-      <div class="content-item">
-        1.3营配协同，优质服务。供电所服务人员做好服务工作，通过微信群发布停电信息，赶赴现场做好用户解释和安抚工作，发放连心卡，提升客户满意度，杜绝发生舆情。
-      </div>
-      <div class="content-item">
-        1.4安全第一，不盲目抢修。抢险前确认烟雾已排净，人员佩戴防毒面具进入站房内勘查设备受损程度，制定具体方案，组织抢险。
-      </div>
-      <div class="content-item">
-        1.5坚持先复电后抢修。能转移负荷的立即倒负荷恢复供电，不能倒负荷的采取临时方案恢复供电，不具备临时方案复电的，通知指挥中心调派发电车带小区保安负荷。
-      </div>
-      <div class="content-item">
-        1.6开展安全有序抢修，通知二、三级抢修梯队负责人派遣人员携带装备和物资赶赴现场，修复故障设备，工作结束第一时间恢复电力正常供应。
-      </div>
-      <div class="content-item">
-        2.防汛处置工作要求
-      </div>
-      <div class="content-item">
-        2.1持续降雨，郑东指挥分中心通过站房防汛“四遥”系统持续关注站房内部水位、环境信息，结合天气预警信息研判站房防汛紧急态势。发现异常第一时间通知设备主人赶赴现场，设备主人检查地下站房挡板、封堵情况、智能巡检系统运行情况，关注开闭所渗漏情况，并及时汇报站房设备运行情况，随时与调度联系。
-      </div>
-      <div class="content-item">
-        2.2网格员联系小区物业共同落实防汛应急措施，配合小区物业完成防汛物资布置。 
-      </div>
-      <div class="content-item">
-        2.3雨水倒灌缓慢，站房内水位较低，无威胁设备安全运行，立即组织人员堆砌沙袋挡水，并抽排水，用烘干机烘干地面。坚持水进人退电停，站房内积水深度超过10公分，人员立即撤退到安全地带，汇报调度断开莲湖东所I莲湖东所未来华庭一配和II莲湖东所未来华庭一配联开关，紧急避险，做到水进电停，防止人员触电和设备受损。
-      </div>
-      <div class="content-item">
-        2.4按照先复电后抢修的原则，在全小区紧急避险停电后，在合适位置低压侧接入发电车，恢复保安负荷。
-      </div>
-      <div class="content-item">
-        2.5水位退出安全位置后，配电运检人员进入现场查看设备受损情况，并立即向组长汇报现场情况，组长召集副组长和小组成员，研究制定抢险方案。
-      </div>
-      <div class="content-item">
-        2.6采取“八步法”或“永临结合”方案，组织做好抢修人员、物资准备，立即开展抢修工作。
-      </div>
-      <div class="content-item">
-        3.防小区大范围停电工作要求
-      </div>
-      <div class="content-item">
-        3.1小区非计划全停时，网格员立即通知设备主人，设备主人立即赶赴现场检查设备，网格员立即与物业、街道办事处取得联系，做好信息互通、舆情防控等沟通工作。
-      </div>
-      <div class="content-item">
-        3.2坚持“先复电后抢修”，能转移负荷的立即进行负荷转移，负荷不能转移时应采取临时方案恢复供电，不具备临时复电条件的，采用发电车带小区保安负荷。
-      </div>
-      <div class="content-item">
-        3.3故障点确认后，立即开展应急处置，隔离故障区域，尽快恢复非故障区域电力供应。典型故障场景处置方案：
-      </div>
-      <div class="content-item">
-        3.3.1民生23II莲湖东所线主进电缆故障，断开民生莲23II莲湖东所线开关，隔离故障点后，合莲湖东所100负荷倒入民生5I莲湖东所线恢复供电。
-      </div>
-      <div class="content-item">
-        3.3.2未来华庭一配莲湖东所联电缆故障，断开Ⅱ未来华庭一配莲湖东所联开关和Ⅱ莲湖东所未来华庭一配联开关，隔离故障点后，合未来华庭一配100负荷倒入民生５板，恢复供电。
-      </div>
-      <div class="content-item">
-        3.3.3未来华庭二配部分设备受损，隔离故障后，将正常设备负荷倒至另一条线路带，或恢复正常方式运行，如两段均有受损，安排2台发电车接入后面所带配电房低压竖井母排，带消防电梯及居民照明负荷，恢复部分供电。
-      </div>
-      <div class="content-item">
-        3.3.4未来华庭二配设备全部受损，2台发电车接入未来华庭二配低压竖井母排，带部分居民照明负荷，恢复部分供电。
-      </div>
-      <div class="content-item">
-        3.3.5故障处置完毕立即恢复送电，姚桥供电所做好对用户解释和安抚工作，杜绝发生舆情。
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const menu = document.querySelector(".menu")
-    const menuBox = document.querySelector(".menu-box")
-    const summary = document.querySelector(".summary")
-    const device = document.querySelector(".device")
-    const diagram = document.querySelector(".diagram")
-    const floodControl = document.querySelector(".flood-control")
-    const principal = document.querySelector(".principal")
-    const service = document.querySelector(".service")
-    const wechat = document.querySelector(".wechat")
-    const contingency = document.querySelector(".contingency")
-    summary.style.display = "block"
-    function showMenu () {
-      menuBox.style.visibility = "visible"
-      menuBox.style.opacity = 1
-      menuBox.style.left = 0
-    }
-    function hideMenu () {
-      menuBox.style.left = "-50%"
-      menuBox.style.opacity = 0
-      menuBox.style.visibility = "hidden"
-    }
-    menu.onclick = function () {
-      showMenu()
-      setTimeout(() => {
-        hideMenu()
-      }, 2000)
-    }
-    function chooseMenu (index) {
-      switch (index) {
-        case 1:
-          summary.style.display = "block"
-          device.style.display = "none"
-          diagram.style.display = "none"
-          floodControl.style.display = "none"
-          principal.style.display = "none"
-          service.style.display = "none"
-          wechat.style.display = "none"
-          contingency.style.display = "none"
-          break
-        case 2:  
-          summary.style.display = "none"
-          device.style.display = "block"
-          diagram.style.display = "none"
-          floodControl.style.display = "none"
-          principal.style.display = "none"
-          service.style.display = "none"
-          wechat.style.display = "none"
-          contingency.style.display = "none"
-          break
-        case 3:  
-          summary.style.display = "none"
-          device.style.display = "none"
-          diagram.style.display = "block"
-          floodControl.style.display = "none"
-          principal.style.display = "none"
-          service.style.display = "none"
-          wechat.style.display = "none"
-          contingency.style.display = "none"
-          break  
-        case 4:
-          summary.style.display = "none"
-          device.style.display = "none"
-          diagram.style.display = "none"
-          floodControl.style.display = "block"
-          principal.style.display = "none"
-          service.style.display = "none"
-          wechat.style.display = "none"
-          contingency.style.display = "none"
-          break
-        case 5:  
-          summary.style.display = "none"
-          device.style.display = "none"
-          diagram.style.display = "none"
-          floodControl.style.display = "none"
-          principal.style.display = "block"
-          service.style.display = "none"
-          wechat.style.display = "none"
-          contingency.style.display = "none"
-          break
-        case 6:  
-          summary.style.display = "none"
-          device.style.display = "none"
-          diagram.style.display = "none"
-          floodControl.style.display = "none"
-          principal.style.display = "none"
-          service.style.display = "block"
-          wechat.style.display = "none"
-          contingency.style.display = "none"
-          break    
-        case 7:  
-          summary.style.display = "none"
-          device.style.display = "none"
-          diagram.style.display = "none"
-          floodControl.style.display = "none"
-          principal.style.display = "none"
-          service.style.display = "none"
-          wechat.style.display = "block"
-          contingency.style.display = "none"
-          break    
-        case 8:  
-          summary.style.display = "none"
-          device.style.display = "none"
-          diagram.style.display = "none"
-          floodControl.style.display = "none"
-          principal.style.display = "none"
-          service.style.display = "none"
-          wechat.style.display = "none"
-          contingency.style.display = "block"
-          break     
-      }
-      hideMenu()
-    }
-  </script>
+    <div class="message"></div>
+    <script>
+        function submit () {
+            const username = document.querySelector("#username").value
+            const password = document.querySelector("#password").value
+            const message = document.querySelector(".message")
+            
+            if(!username) {
+                message.style.display = "block"
+                message.innerHTML = "请输入人员电话"
+                setTimeout(() => {
+                    message.style.display = "none"
+                }, 2000)
+            }
+            if(!password) {
+                message.style.display = "block"
+                message.innerHTML = "请输入验证码"
+                setTimeout(() => {
+                    message.style.display = "none"
+                }, 2000)
+            }
+            if(username === 'admin' && password === '123456') {
+                
+                window.open("index.html", "_self")
+            } else if(username === 'test' && password === '123456') {
+                console.log("验证通过")
+            } else {
+                console.log("验证失败")
+            }
+        }
+    </script>
 </body>
 </html>
